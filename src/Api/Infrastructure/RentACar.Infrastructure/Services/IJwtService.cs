@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RentACar.Infrastructure.Persistance.Services
 {
-    public interface IJwtService
+    public interface IJwtService  // JWT işlemleri için servis arayüzü
     {
-        string GenerateToken(BaseUser user);
-        ClaimsPrincipal ValidateToken(string token);
+        string GenerateToken(BaseUser user);  // Kullanıcıdan JWT üret
+        ClaimsPrincipal ValidateToken(string token);  // Token'ı doğrula ve claimleri döndür
     }
 }

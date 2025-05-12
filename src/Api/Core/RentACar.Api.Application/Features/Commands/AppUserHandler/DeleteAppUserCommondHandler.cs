@@ -12,7 +12,7 @@ namespace RentACar.Api.Application.Features.Commands.AppUserHandler
     /// <summary>
     /// Uygulama kullanıcısını silen komut işleyici sınıfı.
     /// </summary>
-    public class DeleteAppUserCommandHandler : IRequestHandler<DeleteAppUserCommand, Guid>
+    public class DeleteAppUserCommandHandler : IRequestHandler<DeleteAppUserCommand, Guid>  // Uygulama kullanıcısını silen işleyici
     {
         /// <summary>
         /// Uygulama kullanıcısı veritabanı işlemleri için repository.
@@ -31,9 +31,9 @@ namespace RentACar.Api.Application.Features.Commands.AppUserHandler
         /// <returns>Silinen Kullanıcı Id'si.</returns>
         public async Task<Guid> Handle(DeleteAppUserCommand request, CancellationToken cancellationToken)
         {
-            await _repository.RemoveAsync(request.Id);
-            await _repository.SaveChangesAsync();
-            return request.Id;
+            await _repository.RemoveAsync(request.Id);  // Kullanıcıyı sil
+            await _repository.SaveChangesAsync();  // Değişiklikleri kaydet
+            return request.Id;  // Silinen kullanıcının ID'si
         }
     }
 }

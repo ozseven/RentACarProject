@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Infrastructure.Persistance.Services
 {
-    public class JwtService : IJwtService
+    public class JwtService : IJwtService  // JWT işlemlerini yöneten servis
     {
         private readonly IConfiguration _configuration;
 
@@ -22,8 +22,8 @@ namespace RentACar.Infrastructure.Persistance.Services
 
         public string GenerateToken(BaseUser user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));  // Anahtar oluştur
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);  // İmzalama bilgisi
 
             var claims = new[]
             {
@@ -40,9 +40,9 @@ namespace RentACar.Infrastructure.Persistance.Services
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpiryInMinutes"])),
                 signingCredentials: credentials
-            );
+            );  // Token oluştur
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(token);  // Token string olarak döndür
         }
 
         public ClaimsPrincipal ValidateToken(string token)
@@ -62,12 +62,12 @@ namespace RentACar.Infrastructure.Persistance.Services
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]))
                 };
 
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
-                return principal;
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);  // Token'ı doğrula
+                return principal;  // Doğrulanan claimleri döndür
             }
             catch
             {
-                return null;
+                return null;  // Hatalıysa null döndür
             }
         }
     }

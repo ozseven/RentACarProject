@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Api.Application.Features.Queries.GetAppUsers
 {
-    public class GetByIdAppUserQueryHandler:IRequestHandler<GetByIdAppUserQuery, GetAppUserQuery>
+    public class GetByIdAppUserQueryHandler:IRequestHandler<GetByIdAppUserQuery, GetAppUserQuery>  // Id ile kullanıcı getiren işleyici
     {
         private readonly IAppUserRepository _appUserRepository;
         private readonly IMapper _mapper;
@@ -23,9 +23,9 @@ namespace RentACar.Api.Application.Features.Queries.GetAppUsers
 
         public async Task<GetAppUserQuery> Handle(GetByIdAppUserQuery request, CancellationToken cancellationToken)
         {
-            var appUser =await _appUserRepository.GetByIdAsync(request.Id);
-            var appUserView = _mapper.Map<GetAppUserQuery>(appUser);
-            return appUserView;
+            var appUser =await _appUserRepository.GetByIdAsync(request.Id);  // Id ile kullanıcıyı bul
+            var appUserView = _mapper.Map<GetAppUserQuery>(appUser);  // Kullanıcıyı ViewModel'e dönüştür
+            return appUserView;  // Sonucu döndür
         }
     }
 }

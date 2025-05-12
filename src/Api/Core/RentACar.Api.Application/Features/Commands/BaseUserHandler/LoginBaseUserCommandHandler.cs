@@ -15,9 +15,9 @@ namespace RentACar.Api.Application.Features.Commands
     /// Kullanıcı kimlik doğrulama ve JWT token üretimi işlemlerini yönetir.
     /// </summary>
     public abstract class LoginBaseUserCommandHandler<TEntity,LoginCommand>
-    : IRequestHandler<LoginCommand, LoginBaseUserViewModel>
-    where TEntity : BaseUser
-    where LoginCommand : LoginBaseUserCommand<TEntity>
+        : IRequestHandler<LoginCommand, LoginBaseUserViewModel>  // Temel kullanıcı girişi işleyicisi
+        where TEntity : BaseUser
+        where LoginCommand : LoginBaseUserCommand<TEntity>
     {
         private readonly IBaseRepository<TEntity> _baseUserRepository;
         private readonly IJwtService _jwtService;
@@ -39,24 +39,22 @@ namespace RentACar.Api.Application.Features.Commands
         /// <param name="request">Giriş isteği.</param>
         /// <param name="cancellationToken">İptal belirteci.</param>
         /// <returns>Giriş başarılıysa, JWT token içeren bir <see cref="LoginBaseUserViewModel"/> döndürür.</returns>
-        public async  Task<LoginBaseUserViewModel> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginBaseUserViewModel> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _baseUserRepository.GetSingleAsync(u => u.Email == request.Email);
+            var user = await _baseUserRepository.GetSingleAsync(u => u.Email == request.Email);  // Kullanıcıyı email ile bul
             if (user == null)
             {
-                throw new DatabaseExistingValueException("Kullanıcı bulunamadı.");
+                throw new DatabaseExistingValueException("Kullanıcı bulunamadı.");  // Kullanıcı yoksa hata
             }
 
-
-            if (user.Password != PasswordEncryptor.Encrypt(request.Password))
+            if (user.Password != PasswordEncryptor.Encrypt(request.Password))  // Şifre kontrolü
             {
                 throw new DatabaseExistingValueException("Geçersiz şifre.");
             }
-            LoginBaseUserViewModel viewModel = new LoginBaseUserViewModel() { 
-                JwtToken= _jwtService.GenerateToken(user)
+            LoginBaseUserViewModel viewModel = new LoginBaseUserViewModel() {
+                JwtToken= _jwtService.GenerateToken(user)  // JWT token oluştur
             };
-            return viewModel;
-
+            return viewModel;  // Token ile birlikte sonucu döndür
         }
     }
 }

@@ -16,7 +16,7 @@ namespace RentACar.Api.Application.Features.Commands.AppUserHandler
     /// <summary>
     /// Yeni bir uygulama kullanıcısı oluşturma işlemini yöneten sınıf.
     /// </summary>
-    public class CreateAppUserCommandHandler : IRequestHandler<CreateAppUserCommand, Guid>
+    public class CreateAppUserCommandHandler : IRequestHandler<CreateAppUserCommand, Guid>  // Yeni uygulama kullanıcısı oluşturma işleyicisi
     {
         private readonly IAppUserRepository _repository;
         private readonly IMapper _mapper;
@@ -40,12 +40,12 @@ namespace RentACar.Api.Application.Features.Commands.AppUserHandler
         /// <returns>Oluşturulan kullanıcının ID'si.</returns>
         public async Task<Guid> Handle(CreateAppUserCommand request, CancellationToken cancellationToken)
         {
-            await ExistsDatabaseQuery<AppUser>.IsExistingAsync(_repository, e => e.Email == request.Email);
-            request.Password = PasswordEncryptor.Encrypt(request.Password);
-            AppUser dbEntity = _mapper.Map<AppUser>(request);
+            await ExistsDatabaseQuery<AppUser>.IsExistingAsync(_repository, e => e.Email == request.Email);  // Email kontrolü
+            request.Password = PasswordEncryptor.Encrypt(request.Password);  // Şifreyi şifrele
+            AppUser dbEntity = _mapper.Map<AppUser>(request);  // Request'i AppUser'a dönüştür
             _repository.Update(dbEntity);
-            await _repository.SaveChangesAsync();
-            return dbEntity.Id;
+            await _repository.SaveChangesAsync();  // Veritabanına kaydet
+            return dbEntity.Id;  // Oluşturulan kullanıcının ID'sini döndür
         }
     }
 }

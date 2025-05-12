@@ -29,34 +29,34 @@ namespace RentACar.Api.Application.Mapping
     {
         public MappingProfile() {
             //AppUser
-            CreateMap<CreateAppUserCommand, AppUser>();
-            CreateMap<UpdateAppUserCommand, AppUser>();
+            CreateMap<CreateAppUserCommand, AppUser>();  // Kullanıcı oluşturma dönüşümü
+            CreateMap<UpdateAppUserCommand, AppUser>();  // Kullanıcı güncelleme dönüşümü
 
-            CreateMap<AppUser, GetAppUserQuery>();
+            CreateMap<AppUser, GetAppUserQuery>();  // Kullanıcıdan ViewModel'e dönüşüm
             CreateMap<AppUser, GetAppUserQuery?>();
 
             //Customer
-            CreateMap<CreateCustomerCommand, Customer>();
-            CreateMap<UpdateCustomerCommand, Customer>();
+            CreateMap<CreateCustomerCommand, Customer>();  // Müşteri oluşturma dönüşümü
+            CreateMap<UpdateCustomerCommand, Customer>();  // Müşteri güncelleme dönüşümü
 
-            CreateMap<Customer, GetCustomerQuery>();
+            CreateMap<Customer, GetCustomerQuery>();  // Müşteriden ViewModel'e dönüşüm
             //Payment
-            CreateMap<CreatePaymentCommand, Payment>();
-            CreateMap<Payment, GetPaymentQuery>();
+            CreateMap<CreatePaymentCommand, Payment>();  // Ödeme oluşturma dönüşümü
+            CreateMap<Payment, GetPaymentQuery>();  // Ödemeden ViewModel'e dönüşüm
             //Product
-            CreateMap<CreateProductCommand, Product>();
-            CreateMap<UpdateProductCommand, Product>();
+            CreateMap<CreateProductCommand, Product>();  // Ürün oluşturma dönüşümü
+            CreateMap<UpdateProductCommand, Product>();  // Ürün güncelleme dönüşümü
 
-            CreateMap<Product, GetProductQuery>();
+            CreateMap<Product, GetProductQuery>();  // Üründen ViewModel'e dönüşüm
             //Rent
-            CreateMap<CreateRentCommand, Rent>();
-            CreateMap<UpdateRentCommand, Rent>();
+            CreateMap<CreateRentCommand, Rent>();  // Kiralama oluşturma dönüşümü
+            CreateMap<UpdateRentCommand, Rent>();  // Kiralama güncelleme dönüşümü
 
-            CreateMap<Rent, GetRentQuery>();
+            CreateMap<Rent, GetRentQuery>();  // Kiralamadan ViewModel'e dönüşüm
             //RentOffice
-            CreateMap<CreateRentOfficeCommand, RentOffice>();
-            CreateMap<UpdateRentOfficeCommand, RentOffice>();
-            CreateMap<RentOffice, GetRentOfficeQuery>();
+            CreateMap<CreateRentOfficeCommand, RentOffice>();  // Ofis oluşturma dönüşümü
+            CreateMap<UpdateRentOfficeCommand, RentOffice>();  // Ofis güncelleme dönüşümü
+            CreateMap<RentOffice, GetRentOfficeQuery>();  // Ofisten ViewModel'e dönüşüm
         }
     }
 }

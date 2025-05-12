@@ -12,7 +12,7 @@ namespace RentACar.Api.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppUserController : BaseController
+    public class AppUserController : BaseController  // Kullanıcı işlemleri için API controller
     {
         private readonly IMediator _mediator;
 
@@ -24,7 +24,7 @@ namespace RentACar.Api.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateAppUserCommand createAppUserCommand)
         {
-            var result = await _mediator.Send(createAppUserCommand);
+            var result = await _mediator.Send(createAppUserCommand);  // Kullanıcı oluştur
             return Ok(result);
         }
         [Authorize]
@@ -32,7 +32,7 @@ namespace RentACar.Api.WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] DeleteAppUserCommand deleteAppUserCommand)
         {
-            var result = await _mediator.Send(deleteAppUserCommand);
+            var result = await _mediator.Send(deleteAppUserCommand);  // Kullanıcı sil
             return Ok(result);
         }
 
@@ -41,19 +41,19 @@ namespace RentACar.Api.WebApi.Controllers
         [HttpPatch]
         public async Task<IActionResult> Update([FromBody] UpdateAppUserCommand updateAppUserCommand)
         {
-            var result = await _mediator.Send(updateAppUserCommand);
+            var result = await _mediator.Send(updateAppUserCommand);  // Kullanıcı güncelle
             return Ok(result);
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginAppUserCommand loginAppUserCommand)
         {
-            var result = await _mediator.Send(loginAppUserCommand);
+            var result = await _mediator.Send(loginAppUserCommand);  // Kullanıcı giriş işlemi
             return Ok(result);
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllAppUserQuery());
+            var result = await _mediator.Send(new GetAllAppUserQuery());  // Tüm kullanıcıları getir
             return Ok(result);
         }
         [HttpGet("account")]
@@ -62,7 +62,7 @@ namespace RentACar.Api.WebApi.Controllers
         {
             if (null == UserId)
                 return BadRequest("UserId is null");
-            var result = await _mediator.Send(new GetByIdAppUserQuery { Id = UserId.Value });
+            var result = await _mediator.Send(new GetByIdAppUserQuery { Id = UserId.Value });  // Id ile kullanıcı getir
             return Ok(result);
         }
         [HttpGet("getall")]
@@ -70,7 +70,7 @@ namespace RentACar.Api.WebApi.Controllers
         [ServiceFilter(typeof(AdminOnlyFilter))]
         public async Task<IActionResult> GetAllAppUser()
         {
-            var result = await _mediator.Send(new GetAllAppUserQuery());
+            var result = await _mediator.Send(new GetAllAppUserQuery());  // Tüm kullanıcıları (admin) getir
             return Ok(result);
         }
         [HttpGet("getall/customer")]
@@ -78,7 +78,7 @@ namespace RentACar.Api.WebApi.Controllers
         [ServiceFilter(typeof(AdminOnlyFilter))]
         public async Task<IActionResult> GetAllCustomerUser()
         {
-            var result = await _mediator.Send(new GetAllCustomerQuery());
+            var result = await _mediator.Send(new GetAllCustomerQuery());  // Tüm müşteri kullanıcıları getir
             return Ok(result);
         }
     }

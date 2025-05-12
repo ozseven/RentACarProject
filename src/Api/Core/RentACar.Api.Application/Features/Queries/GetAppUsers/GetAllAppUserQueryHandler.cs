@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RentACar.Api.Application.Features.Queries.GetAppUsers
 {
-    internal class GetAllAppUserQueryHandler:IRequestHandler<GetAllAppUserQuery, IEnumerable<GetAppUserQuery>>
+    internal class GetAllAppUserQueryHandler:IRequestHandler<GetAllAppUserQuery, IEnumerable<GetAppUserQuery>>  // Tüm kullanıcıları listeleyen işleyici
     {
         private readonly IAppUserRepository _appUserRepository;
         private readonly IMapper _mapper;
@@ -21,9 +21,9 @@ namespace RentACar.Api.Application.Features.Queries.GetAppUsers
         }
         public async Task<IEnumerable<GetAppUserQuery>> Handle(GetAllAppUserQuery request, CancellationToken cancellationToken)
         {
-            var appUsers = _appUserRepository.GetAll();
-            var appUserList = _mapper.Map<IEnumerable<GetAppUserQuery>>(appUsers);
-            return appUserList;
+            var appUsers = _appUserRepository.GetAll();  // Tüm kullanıcıları getir
+            var appUserList = _mapper.Map<IEnumerable<GetAppUserQuery>>(appUsers);  // Kullanıcıları ViewModel'e dönüştür
+            return appUserList;  // Sonucu döndür
         }
     }
 }

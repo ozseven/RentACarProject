@@ -16,19 +16,19 @@ namespace RentACar.Api.Application.Registration
     /// Uygulama servislerinin DI container'a kaydedilmesi için yardımcı sınıf.
     /// MediatR, AutoMapper ve JWT servislerinin yapılandırmasını sağlar.
     /// </summary>
-    public static class ServiceRegistration
+    public static class ServiceRegistration  // Servis kayıtlarını yöneten yardımcı sınıf
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+                cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));  // MediatR servislerini ekle
 
-            services.AddAutoMapper(typeof(MappingProfile));
-            services.AddScoped<IJwtService,JwtService>();
-            services.AddScoped<AdminOnlyFilter>();
-            services.AddHttpContextAccessor();
+            services.AddAutoMapper(typeof(MappingProfile));  // AutoMapper profilini ekle
+            services.AddScoped<IJwtService,JwtService>();  // JWT servis kaydı
+            services.AddScoped<AdminOnlyFilter>();  // Admin filtre kaydı
+            services.AddHttpContextAccessor();  // HTTP context erişimi
 
-            return services;
+            return services;  // Servis koleksiyonunu döndür
         }
     }
 }

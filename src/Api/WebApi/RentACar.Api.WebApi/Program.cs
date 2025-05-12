@@ -6,19 +6,17 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Servisleri ekle
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi();  // OpenAPI dokümantasyonu
 
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureRegistration(builder.Configuration);
+builder.Services.AddApplicationServices();  // Uygulama servislerini ekle
+builder.Services.AddInfrastructureRegistration(builder.Configuration);  // Altyapı servislerini ekle
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument();
 
-// Add JWT Authentication
+// JWT kimlik doğrulama ekle
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -37,14 +35,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AppUserOnly", policy =>
-        policy.RequireClaim("typ", "AppUser")); 
+        policy.RequireClaim("typ", "AppUser"));  // Sadece AppUser tipine sahip kullanıcılar
 });
 
 var app = builder.Build();
 
-
-
-// Configure the HTTP request pipeline.
+// HTTP pipeline yapılandırması
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -52,9 +48,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUi();
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication();  // Kimlik doğrulama middleware
+app.UseAuthorization();  // Yetkilendirme middleware
 
-app.MapControllers();
+app.MapControllers();  // Controller endpointlerini ekle
 
 app.Run();

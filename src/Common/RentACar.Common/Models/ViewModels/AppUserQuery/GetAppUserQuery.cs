@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RentACar.Common.Models.ViewModels.AppUserQuery
 {
-    public class GetAppUserQuery:IRequest<Guid>
+    public class GetAppUserQuery:IRequest<Guid>  // Kullanıcı sorgu modeli (ViewModel)
     {
-        public Guid RentOfficeId { get; set; }
-        public Status Status { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public Guid RentOfficeId { get; set; }  // Kullanıcının ofis ID'si
+        public Status Status { get; set; }  // Kullanıcı durumu
+        public string Name { get; set; }  // Kullanıcı adı
+        public string Surname { get; set; }  // Kullanıcı soyadı
     }
 }

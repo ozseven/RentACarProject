@@ -6,15 +6,15 @@ namespace RentACar.Api.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController : ControllerBase
+    public class BaseController : ControllerBase  // Tüm controllerlar için temel sınıf
     {
-        public Guid? UserId
+        public Guid? UserId  // JWT'den kullanıcı ID'sini çeker
         {
             get
             {
                 var val = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                return val is null ? null : new Guid(val);
+                return val is null ? null : new Guid(val);  // ID yoksa null, varsa Guid döndür
             }
         }
     }
